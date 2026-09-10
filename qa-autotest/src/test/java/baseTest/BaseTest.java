@@ -17,14 +17,17 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
-
-        // На CI (GitHub Actions) нет графического дисплея — запускаем headless.
-        // Локально у тебя есть дисплей, но эти флаги не мешают обычному запуску.
-        options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1920,1080");
+
+        // CI (GitHub Actions) сам выставляет переменную CI=true.
+        // На своей машине этой переменной нет — значит браузер будет виден.
+        boolean isCi = System.getenv("CI") != null;
+        if (isCi) {
+            options.addArguments("--headless=new");
+        }
 
         driver = new ChromeDriver(options);
     }

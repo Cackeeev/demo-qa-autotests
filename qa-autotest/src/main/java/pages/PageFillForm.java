@@ -48,5 +48,17 @@ public class PageFillForm {
     public boolean modalSucces() {
         return driver.findElement(modalTrue).isDisplayed();
     }
+    public String getStudentName(String studentName){
+        return driver.findElement(By.xpath("//td[text()='"+ studentName +"']/following-sibling::td")).getText();
+    }
+    public String getStudentEmail(String studentEmail){
+        return driver.findElement(By.xpath("//td[text()='"+ studentEmail +"']/following-sibling::td")).getText();
+    }
+    public String getStudentGender(String studentGender){
+        return driver.findElement(By.xpath("//td[text()='"+ studentGender +"']/following-sibling::td")).getText();
+    }
+    public String getStudentMobile(String studentMobile){
+        return driver.findElement(By.xpath("//td[text()='"+ studentMobile +"']/following-sibling::td")).getText();
+    }
 
 }

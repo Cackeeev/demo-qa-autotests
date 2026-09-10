@@ -7,12 +7,12 @@ import org.openqa.selenium.WebDriver;
 import pages.PageFillForm;
 import utils.UserRandom;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static utils.UserRandom.randomUser;
 
 public class TestFillForm extends BaseTest {
     @Test
-    void testFillForm(){
+    void testFillForm() {
         PageFillForm pageFillForm = new PageFillForm(driver);
 
         User user = randomUser();
@@ -21,6 +21,13 @@ public class TestFillForm extends BaseTest {
                 .fillForm(user)
                 .submitButton();
 
-        assertTrue(pageFillForm.modalSucces());
+        assertAll(
+                () -> assertTrue(pageFillForm.modalSucces()),
+                () -> assertEquals(user.getFirstName() + " " + user.getLastName(), pageFillForm.getStudentName("Student Name")),
+                () -> assertEquals(user.getEmail(), pageFillForm.getStudentEmail("Student Email")),
+                () -> assertEquals(user.getGender(), pageFillForm.getStudentGender("Gender")),
+                () -> assertEquals(user.getNumber(), pageFillForm.getStudentMobile("Mobile"))
+
+        );
     }
 }
